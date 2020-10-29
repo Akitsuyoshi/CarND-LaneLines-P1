@@ -10,16 +10,13 @@ The goals / steps of this project are the following:
 * Make a pipeline that finds lane lines on the road, using opencv and python
 * Reflect on my work
 
-[//]: # (Image References)
+...
 
-[original]: test_images/solidWhiteCurve.jpg "Original"
-[image1]: ./examples/grayscale.jpg "Grayscale"
-[image2]: ./examples/blur.jpg "Blur"
-[image3]: ./examples/edge.jpg "Edge"
-[image4]: ./examples/masked_edge.jpg "Masked Edge"
-[image5]: ./examples/line.jpg "Line"
-[image6]: ./test_images_output/solidWhiteCurve.jpg "Image Output"
-[image7]: ./examples/example_output.gif "Video Output"
+Original Image             | Desired Image         |
+:-------------------------:|:-------------------------:|
+<img src="./test_images/solidWhiteCurve.jpg" width="300">   |  <img src="./examples/laneLines_thirdPass.jpg" width="300"> 
+
+[//]: # (Image References)
 
 ---
 
@@ -35,14 +32,16 @@ docker run -it --rm --entrypoint "/run.sh" -p 8888:8888 -v `pwd`:/src udacity/ca
 
 ### 1. Pipeline step
 
-The origial image is shown below
-![alt text][original]
-
 My pipeline consisted of 5 steps.
-First, I converted the images to grayscale, and then applied Gaussian blur to that grayscaled image so that I can reduce image noise. Gaussian blur can be skipped because cv2.Canny I use next step do blur internally, by kernel size 5 × 5.
-However, I didn't skip because I found that 3 × 3 case made better result than that of 5 × 5. To detect edges in blurred image, I use Canny edge detection. I decide high / low threshold, 255 and 255/3 for that Canny but I couldn't find a convinced reason for that range. White see the test images, I found that lane line is mostly located in specific area, so I put four sided polygon to mask at the bottom half of the image.
 
-I got masked edge image from the pre-processing steps above. I implemented a Hough Transform to decide which lines pipelien should detect in image. I found lines close to the expected output, but there's a problem. Lines I found was often broken in the middle of lane when it couldn't see edge at the bottom of image.In order to draw a single line on the left and right lanes, I extrapolate line with numpy.polyfit. I do that by simply plugging in points that are outside of data set. I put original image and red line drawn image together.
+First, I converted the images to grayscale, and then applied Gaussian blur to that grayscaled image so that I can reduce image noise. Gaussian blur can be skipped because cv2.Canny I use next step do blur internally, by kernel size 5 × 5.
+However, I didn't skip because I found that 3 × 3 case made better result than that of 5 × 5. 
+
+To detect edges in blurred image, I use Canny edge detection. I decide high / low threshold, 255 and 255/3 for that Canny but I couldn't find a convinced reason for that range. While seeing test images, I found that lane lines are mostly located in specific area, so I put four sided polygon to mask at the bottom half of the image.
+
+I got masked edge image from the pre-processing steps above. I implemented a Hough Transform to decide which lines pipelien should detect in image. I found lines seem close to the expected output, but there's a problem. Lines I found was often broken in the middle of lane when it couldn't see edge at the bottom of image. 
+
+In order to draw a single line on the left and right lanes, I extrapolate line with numpy.polyfit. I do that by simply plugging in points that are outside of data set. I put original image and red line drawn image together.
 
 ...
 
@@ -55,33 +54,17 @@ To wrap it up, Here is 5 steps in my pipeline.
 
 ...
 
-1. Grayscaled image
+1. Grayscaled             | 2. Gaussian Blurred         | 3. Edge 
+:-------------------------:|:-------------------------:| :-------------------------:|
+<img src="./examples/grayscale.jpg" width="250">   |  <img src="./examples/blur.jpg" width="250">  | <img src="./examples/edge.jpg" width="250">
 
-![alt text][image1]
-
-2. blurred image
-
-![alt text][image2]
-
-3. Edge on image
-
-![alt text][image3]
-
-4. Masked image
-
-![alt text][image4]
-
-5. Red line image
-
-![alt text][image5]
-
-6. final output(red line image + original image)
-
-![alt text][image6]
+4. Masked Edges             | 5. Red Line         | 6. Output(Red Line + original image) 
+:-------------------------:|:-------------------------:| :-------------------------:|
+<img src="./examples/masked_edge.jpg" width="250">   |  <img src="./examples/line.jpg" width="250">  | <img src="./test_images_output/solidWhiteCurve.jpg" width="250">
 
 The output in video format looks like this.
 
-![alt text][image7]
+<img src="./examples/example_output.gif" width="350">
 
 You can see the codebase in [my jupyter notebook](./P1.ipynb).
 
