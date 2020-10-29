@@ -54,11 +54,11 @@ To wrap it up, Here is 5 steps in my pipeline.
 
 ...
 
-1. Grayscaled             | 2. Gaussian Blurred         | 3. Edge 
+1. Grayscaled             | 2. Gaussian Blurred         | 3. Edge                   |
 :-------------------------:|:-------------------------:| :-------------------------:|
 <img src="./examples/grayscale.jpg" width="250">   |  <img src="./examples/blur.jpg" width="250">  | <img src="./examples/edge.jpg" width="250">
 
-4. Masked Edges             | 5. Red Line         | 6. Output(Red Line + original image) 
+4. Masked Edges             | 5. Red Line         | 6. Output(Red Line + original image) | 
 :-------------------------:|:-------------------------:| :-------------------------:|
 <img src="./examples/masked_edge.jpg" width="250">   |  <img src="./examples/line.jpg" width="250">  | <img src="./test_images_output/solidWhiteCurve.jpg" width="250">
 
