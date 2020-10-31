@@ -29,9 +29,9 @@ The goals / steps of this project are the following:
 
 ...
 
-|Original Image         |Desired Image          |
-|:---------------------:|:---------------------:|
-|![alt text][original]  |![alt text][output]    |
+|Original Image         |Desired Image
+|:---------------------:|:---------------------:
+|![alt text][original]  |![alt text][output]
 
 [//]: # (Image References)
 
