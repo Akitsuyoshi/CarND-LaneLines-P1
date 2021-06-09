@@ -16,7 +16,7 @@ This is my first project of [Self-Driving Car Engineer nanodegree program](https
   - [3 Improvements to pipeline](#3-improvements-to-pipeline)
   - [4 Future Feature](#4-future-feature)
 - [Reference](#reference)
-- [Issues](#issues)
+- [Author](#author)
 
 ---
 
@@ -50,7 +50,7 @@ The goals/steps of this project are the following:
 
 ### 0 Setting
 
-To set it up to run this script at first, I followed this [starter kit](https://github.com/udacity/CarND-Term1-Starter-Kit) with docker. If you use mac and docker was installed successfully, you can run jupyter notebook on your local machine by the command below.
+To set it up to run this script at first, I followed this [starter kit](https://github.com/udacity/CarND-Term1-Starter-Kit) with docker. If you installed docker successfully, you can run jupyter notebook on your local machine by the command below.
 
 ```sh
 docker run -it --rm --entrypoint "/run.sh" -p 8888:8888 -v `pwd`:/src udacity/carnd-term1-starter-kit
@@ -65,9 +65,9 @@ However, I didn't skip it because I found that 3 × 3 case made a bit better res
 
 To detect edges in a blurred image, I use Canny edge detection. I decide on a high/low threshold, 255 and 255/3 for that Canny but I couldn't find a convincing reason for that range. While seeing test images, I found that lane lines are mostly located in a specific area, so I put a four-sided polygon to mask at the bottom half of the image.
 
-I got a masked edge image from the pre-processing steps above. I implemented a Hough Transform to decide which lines my pipeline should detect in the image. I found lines seem close to the expected output, but there's a problem. The lines were oftentimes broken in the middle of the lane when it couldn't see the edges at the bottom of the image.
+I got a masked edge image from the pre-processing steps above. I implemented a Hough Transform to decide which lines my pipeline should detect in the image. I first found lines seem close to the expected output, but there's a problem. The lines were oftentimes broken in the middle of the lane when it couldn't see the edges at the bottom of the image.
 
-So, to draw a solid single line on the left and right lanes, I extrapolate a line with `numpy.polyfit`. I do that by simply plugging in points that are outside of the data set. Then I put the original image and red line drawn image together to get the final output image.
+So, to draw a solid single line on the left and right lanes, I extrapolate a line with `numpy.polyfit`. I do that by simply plugging in points that are outside of the data set. Then I put the original and red line image together to get the final output image.
 
 ...
 
@@ -99,17 +99,17 @@ You can see the codebase in [my jupyter notebook](./P1.ipynb).
 
 One potential shortcoming would be that my pipeline finds it hard to get edges when it is bad weather like strong snow in the night. Also, I only tested images in the day but the night image might make a bad result because a border can be a bit unseen relatively.
 
-Another shortcoming could be a bad result when riding on the hill, mountain, and those of high hill place. The pipeline didn't consider the case that lane has some slope.
+Another shortcoming could be a bad result when riding on the high hill place. My current pipeline doesn't consider the case that lane has some slope.
 
 ### 3 Improvements to pipeline
 
 A possible improvement would increase the test dataset to see how bad or good my current pipeline can detect lane lines. Regardless of its result, it might need more data.
 
-Another potential improvement could implement another edge detection or Hough transform to detect the lines in the image. In addition to that, pre-process steps have more room to improve. In this project, I manually change the parameters in the preprocess step, but it can improve more, like [this approach](https://medium.com/@maunesh/finding-the-right-parameters-for-your-computer-vision-algorithm-d55643b6f954)
+Another potential improvement could implement alternative edge detection or Hough transform to detect the lines in the image. In addition to that, pre-process steps have more room to improve. In this project, I manually change the parameters in the preprocess step, but it can improve more, like [this approach](https://medium.com/@maunesh/finding-the-right-parameters-for-your-computer-vision-algorithm-d55643b6f954)
 
 ### 4 Future Feature
 
-The current pipeline couldn't work well for challenging video, which is something with a lot of curves and objects on the road. Not a high priority to pass, but I'll see it later to deal with that. On top of that, writing about the step in my medium post.
+The current pipeline couldn't work at all for challenging video, which is something with a lot of curves and objects on the road. Not a high priority to pass, but I'll see it later to deal with that.
 
 ---
 
@@ -120,7 +120,6 @@ The current pipeline couldn't work well for challenging video, which is somethin
 
 ---
 
-## Issues
+## Author
 
-Feel free to submit issues and enhancement requests.
-If you see some bugs in here, you can contact me at my [twitter account](https://twitter.com/).
+- [Tsuyoshi Akiyama](https://github.com/Akitsuyoshi)
